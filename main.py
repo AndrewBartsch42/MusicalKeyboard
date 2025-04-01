@@ -1,29 +1,24 @@
-from pynput import keyboard # https://pynput.readthedocs.io/en/latest/index.html
-
+import pygame
 import winsound
+import time
+pygame.init()
+screen = pygame.display.set_mode((1280,720))
+clock = pygame.time.Clock()
+running = True
 
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                winsound.Beep(196, 100)
+            elif event.key == pygame.K_w:
+                winsound.Beep(293, 100)
+            elif event.key == pygame.K_e:
+                winsound.Beep(440, 100)
+            elif event.key == pygame.K_r:
+                winsound.Beep(659, 100)
 
-def on_press(key): #sends the key on press to print out in the console
-    if key == 'a':
-         winsound.Beep(440, 500)
-    else:
-        try:
-            #print('alphanumeric key {0} pressed'.format(key.char))
-            if "{0}".format(key.char) == "a":
-                winsound.Beep(440, 500)
-            else:
-                print('alphanumeric key {0} pressed'.format(key.char))
-        except AttributeError:
-            print('special key {0} pressed'.format(key))
-
-def on_release(key): # sends the key on release to the print out in the console
-    print('{0} released'.format(key))
-    if key == keyboard.Key.esc: # esc key is the exit condition for the loop
-        # stop listener 
-        return False
-    
-with keyboard.Listener( # starts the listener
-    on_press=on_press,
-    on_release=on_release) as listener:
-        listener.join()
-
+                
+pygame.quit()
